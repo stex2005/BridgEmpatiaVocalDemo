@@ -82,9 +82,9 @@ class BridgeConfClass:
         self.PatientFile  = ''
 
         #self.TargetPos    = [0.27, 0.2, -0.1]
-        self.TargetPos    = [0.3, 0.1, 0.15]
+        #self.TargetPos    = [0.3, 0.1, 0.15]
         # self.TargetPos    = [0.3, -0.15, 0.2]
-        # self.TargetPos    = [0.25, 0.2, -0.15]
+        self.TargetPos    = [0.25, 0.3, -0.15]
         # self.TargetPos    = [0.3, -0.15, -0.1]
 
 

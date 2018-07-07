@@ -17,9 +17,9 @@ import wx.xrc
 class BridgeVocalWin ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BridgeVocal V0.1", pos = wx.DefaultPosition, size = wx.Size( 1002,536 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BridgeVocal V0.1", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.Size( 1002,-1 ), wx.Size( 1002,-1 ) )
+		self.SetSizeHintsSz( wx.Size( 1002,536 ), wx.Size( -1,-1 ) )
 		
 		self.m_statusBar1 = self.CreateStatusBar( 1, wx.ST_SIZEGRIP, wx.ID_ANY )
 		self.m_menubar1 = wx.MenuBar( 0 )
@@ -98,6 +98,7 @@ class BridgeVocalWin ( wx.Frame ):
 		
 		self.SetSizer( bSizer2 )
 		self.Layout()
+		bSizer2.Fit( self )
 		
 		self.Centre( wx.BOTH )
 		

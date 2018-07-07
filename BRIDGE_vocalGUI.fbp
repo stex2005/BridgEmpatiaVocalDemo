@@ -40,11 +40,11 @@
             <property name="font"></property>
             <property name="hidden">0</property>
             <property name="id">wxID_ANY</property>
-            <property name="maximum_size">1002,-1</property>
-            <property name="minimum_size">1002,-1</property>
+            <property name="maximum_size">-1,-1</property>
+            <property name="minimum_size">1002,536</property>
             <property name="name">BridgeVocalWin</property>
             <property name="pos"></property>
-            <property name="size">1002,536</property>
+            <property name="size">-1,-1</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass"></property>
             <property name="title">BridgeVocal V0.1</property>
@@ -179,7 +179,7 @@
                 <event name="OnSetFocus"></event>
                 <event name="OnSize"></event>
                 <event name="OnUpdateUI"></event>
-                <object class="wxMenu" expanded="0">
+                <object class="wxMenu" expanded="1">
                     <property name="label">File</property>
                     <property name="name">m_menu1</property>
                     <property name="permission">protected</property>
@@ -233,7 +233,7 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
-                <object class="wxMenu" expanded="0">
+                <object class="wxMenu" expanded="1">
                     <property name="label">Tools</property>
                     <property name="name">m_menu2</property>
                     <property name="permission">protected</property>
