@@ -21,11 +21,11 @@ import math
 import imutils
 
 
-import BRIDGEVocal_GUI
+import BridgeVocalGUI
 
 from BridgeConf import BridgeConfClass, BridgeClass, BridgeCoordClass
 from BridgeCtrl import Thread_ControlClass
-from VocalClass_02 import Thread_VocalControlClass
+from BridgeVocal import Thread_VocalControlClass
 from BridgeJoint import Joint
 
 import wx
@@ -35,8 +35,7 @@ from wx.lib.pubsub import pub as Publisher
 
 import matplotlib
 matplotlib.use('Qt4Agg')
-# matplotlib.use('TkAgg')
-# matplotlib.use('WXAgg')
+
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
 from matplotlib.backends.backend_wxagg import NavigationToolbar2WxAgg
 from matplotlib.figure import Figure
@@ -65,13 +64,14 @@ class CreatePlotJoystick(wx.Panel):
         self.dim_pan  = parent.GetSize()
         self.figure   = Figure(figsize=(self.dim_pan[0]*1.0/self.dpi,(self.dim_pan[1])*1.0/self.dpi), dpi=self.dpi)
         
-        sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
-        col_norm      = (sysTextColour[0]*1.0/255, sysTextColour[1]*1.0/255, sysTextColour[2]*1.0/255)
-        self.figure.patch.set_facecolor(col_norm)
+        #sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
+        #col_norm      = (sysTextColour[0]*1.0/255, sysTextColour[1]*1.0/255, sysTextColour[2]*1.0/255)
+        #self.figure.patch.set_facecolor(col_norm)
 
         # Canvas
         self.canvas = FigureCanvas(parent, -1, self.figure)
         sizer1 = wx.BoxSizer(wx.VERTICAL)
+        sizer1.Add(self.canvas, 1, wx.ALL | wx.EXPAND)
 
 
         self.ax = self.figure.add_subplot(1, 1, 1)
@@ -97,14 +97,15 @@ class CreatePlot3DExo(wx.Panel):
         self.dpi      = 75
         self.dim_pan  = parent.GetSize()
         self.figure   = Figure(figsize=(self.dim_pan[0]*1.0/self.dpi,(self.dim_pan[1])*1.0/self.dpi), dpi=self.dpi)
-        
-        sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
-        col_norm      = (sysTextColour[0]*1.0/255, sysTextColour[1]*1.0/255, sysTextColour[2]*1.0/255)
-        self.figure.patch.set_facecolor(col_norm)
+
+        #sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
+        #col_norm      = (1.0, 1.0, 1.0)
+        #self.figure.patch.set_facecolor(col_norm)
 
         # Canvas
         self.canvas = FigureCanvas(parent, -1, self.figure)
         sizer1 = wx.BoxSizer(wx.VERTICAL)
+        sizer1.Add(self.canvas, 1, wx.ALL | wx.EXPAND)
 
 
         self.ax = self.figure.add_subplot(1, 1, 1, projection='3d')
@@ -141,13 +142,14 @@ class CreatePlot2DExo(wx.Panel):
         self.dim_pan  = parent.GetSize()
         self.figure   = Figure(figsize=(self.dim_pan[0]*1.0/self.dpi,(self.dim_pan[1])*1.0/self.dpi), dpi=self.dpi)
         
-        sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
-        col_norm      = (sysTextColour[0]*1.0/255, sysTextColour[1]*1.0/255, sysTextColour[2]*1.0/255)
-        self.figure.patch.set_facecolor(col_norm)
+        #sysTextColour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU) #colore sfondo come finestra
+        #col_norm      = (sysTextColour[0]*1.0/255, sysTextColour[1]*1.0/255, sysTextColour[2]*1.0/255)
+        #self.figure.patch.set_facecolor(col_norm)
 
         # Canvas
         self.canvas = FigureCanvas(parent, -1, self.figure)
         sizer1 = wx.BoxSizer(wx.VERTICAL)
+        sizer1.Add(self.canvas, 1, wx.ALL | wx.EXPAND)
 
         self.ax = self.figure.add_subplot(1, 1, 1)
         self.ax.axis('equal')
@@ -168,10 +170,10 @@ class CreatePlot2DExo(wx.Panel):
 
 ###############################################################################
 # GUI CLASS
-class MainWindow(BRIDGEVocal_GUI.BridgeVocalWin):
+class MainWindow(BridgeVocalGUI.BridgeVocalWin):
     def __init__(self, parent):
 
-        BRIDGEVocal_GUI.BridgeVocalWin.__init__(self,parent)
+        BridgeVocalGUI.BridgeVocalWin.__init__(self, parent)
 
         #redirect output to ctrl text
         redir      = RedirectText(self.show_terminal)
@@ -351,13 +353,6 @@ class MainWindow(BRIDGEVocal_GUI.BridgeVocalWin):
         ''' Define control threads '''
         self.Bridge.ControlThread = Thread_ControlClass(self.Bridge, self.Conf, self.Coord, Debug = False)
 
-    def close(self, event):
-        print 'Hasta la vista!'
-
-        #self.disableCtrl_command(None)
-        self.Destroy()
-
-
     def preferences(self, event):
         print "Warning - No preferences available at the moment"
 
@@ -410,6 +405,28 @@ class MainWindow(BRIDGEVocal_GUI.BridgeVocalWin):
             th = threads_list[i]
             if th.name != "MainThread":
                 th.join()
+
+    def exit(self,event):
+        " Kill all the threads except MainThread "
+
+        " Get active threads "
+        threads_list = threading.enumerate()
+        print threads_list
+
+        print "* Terminating Threads ..."
+        for i in range(0, len(threads_list)):
+            th = threads_list[i]
+            if th.name != "MainThread":
+                try:
+                    th.terminate()
+                    th.join()
+                except Exception, e:
+                    print "# Error terminating " + th.name + " | " + str(e)
+        try:
+            self.Close()
+            print "Closed"
+        except Exception, e:
+            print "# Error closing | " + str(e)
 
 
     def loadPatient_command(self,event):

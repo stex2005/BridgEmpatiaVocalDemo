@@ -20,6 +20,7 @@ class BridgeVocalWin ( wx.Frame ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"BridgeVocal V0.1", pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.Size( 1002,536 ), wx.Size( -1,-1 ) )
+		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 		
 		self.m_statusBar1 = self.CreateStatusBar( 1, wx.ST_SIZEGRIP, wx.ID_ANY )
 		self.m_menubar1 = wx.MenuBar( 0 )
@@ -52,10 +53,18 @@ class BridgeVocalWin ( wx.Frame ):
 		
 		bSizer4 = wx.BoxSizer( wx.VERTICAL )
 		
+		bSizer3 = wx.BoxSizer( wx.VERTICAL )
+		
 		self.vocal_instructions = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer4.Add( self.vocal_instructions, 1, wx.EXPAND |wx.ALL, 5 )
+		bSizer3.Add( self.vocal_instructions, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		bSizer4.Add( bSizer3, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sbSizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Activities" ), wx.HORIZONTAL )
+		
+		
+		sbSizer3.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
 		
 		self.button_loadPatient = wx.Button( sbSizer3.GetStaticBox(), wx.ID_ANY, u"Settings", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizer3.Add( self.button_loadPatient, 0, wx.ALL, 5 )
@@ -67,7 +76,10 @@ class BridgeVocalWin ( wx.Frame ):
 		sbSizer3.Add( self.butt_StopControl, 0, wx.ALL, 5 )
 		
 		
-		bSizer4.Add( sbSizer3, 0, wx.EXPAND, 5 )
+		sbSizer3.AddSpacer( ( 0, 0), 1, wx.EXPAND, 5 )
+		
+		
+		bSizer4.Add( sbSizer3, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		self.show_terminal = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
 		self.show_terminal.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
@@ -78,8 +90,24 @@ class BridgeVocalWin ( wx.Frame ):
 		
 		bSizer2.Add( bSizer4, 1, wx.EXPAND, 5 )
 		
-		self.exo3d_container = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer2.Add( self.exo3d_container, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer4 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer4.SetMinSize( wx.Size( -1,500 ) ) 
+		self.m_panel7 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_panel7.SetMaxSize( wx.Size( -1,100 ) )
+		
+		bSizer4.Add( self.m_panel7, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		self.exo3d_container = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.TAB_TRAVERSAL )
+		bSizer4.Add( self.exo3d_container, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.m_panel6 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_panel6.SetMaxSize( wx.Size( -1,100 ) )
+		
+		bSizer4.Add( self.m_panel6, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		bSizer2.Add( bSizer4, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"2D view" ), wx.VERTICAL )
 		
