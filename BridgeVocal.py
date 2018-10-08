@@ -50,8 +50,6 @@ class Thread_VocalControlClass(threading.Thread):
 
         self.Coord.p0 = [0, 0, 0, 0] # TODO rimuovere
 
-
-        
     def run(self):
 
         print '* Start vocal control'
@@ -199,7 +197,6 @@ class Thread_VocalControlClass(threading.Thread):
                 print '*** Sono in ascolto ***' 
                 self.Coord.VocalCtrlPos = 'jarvis'
 
-    
     # funzione di riconoscimento dei comandi che può essere personalizzata -> custumizzazione
     def CommandRecognition(self, instr):
 
@@ -290,7 +287,6 @@ class Thread_VocalControlClass(threading.Thread):
                 winsound.PlaySound('ImpossibileMemorizzare.wav', winsound.SND_FILENAME)
                 self.Bip()
 
-
     def WaitForInstructions(self):
         with sr.Microphone() as source:
             cmd = self.r.listen(source)
@@ -306,14 +302,13 @@ class Thread_VocalControlClass(threading.Thread):
             
             return instruction
 
-
     def Bip(self):
         Freq = 700 # Set Frequency To 2500 Hertz
         Dur = 950 # Set Duration To 1000 ms == 1 second
         winsound.Beep(Freq,Dur)
 
-    def exit_callback(self,dt):
-        pyglet.app.exit()
+    def terminate(self):
+        self.running_VocalControl == False
 
 
 

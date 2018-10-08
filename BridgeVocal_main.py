@@ -175,11 +175,11 @@ class MainWindow(BridgeVocalGUI.BridgeVocalWin):
 
         BridgeVocalGUI.BridgeVocalWin.__init__(self, parent)
 
-        #redirect output to ctrl text
+        " Redirect output to ctrl text "
         redir      = RedirectText(self.show_terminal)
         sys.stdout = redir
 
-        # Define bridge configurations
+        " Define bridge configurations "
         self.Bridge   = BridgeClass()
         self.Conf     = BridgeConfClass()
         self.Coord    = BridgeCoordClass()
@@ -212,7 +212,7 @@ class MainWindow(BridgeVocalGUI.BridgeVocalWin):
         self.exo2d_plot3.ax.set_ylabel('SCENDERE - SALIRE')
         self.ani2d_plot3    = animation.FuncAnimation(self.exo2d_plot3.figure, self.animate_plot2D3, fargs=[],interval = 500)
 
-        # Disable all buttons
+
         # TODO disabilitare i bottoni
 
     def animate_plot2D1(self, i):

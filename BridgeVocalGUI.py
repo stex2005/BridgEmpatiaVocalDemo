@@ -81,11 +81,16 @@ class BridgeVocalWin ( wx.Frame ):
 		
 		bSizer4.Add( sbSizer3, 0, wx.EXPAND|wx.ALL, 5 )
 		
+		bSizer5 = wx.BoxSizer( wx.VERTICAL )
+		
 		self.show_terminal = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
 		self.show_terminal.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.show_terminal.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BACKGROUND ) )
 		
-		bSizer4.Add( self.show_terminal, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer5.Add( self.show_terminal, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		
+		bSizer4.Add( bSizer5, 1, wx.EXPAND|wx.ALL, 5 )
 		
 		
 		bSizer2.Add( bSizer4, 1, wx.EXPAND, 5 )
