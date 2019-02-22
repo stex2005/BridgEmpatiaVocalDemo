@@ -268,7 +268,7 @@ class MainWindow(BridgeVocalGUI.BridgeVocalWin):
 
             self.load_img = True
 
-            if self.Coord.VocalCtrlPos == None or self.Coord.VocalCtrlPos == 'jarvis':
+            if self.Coord.VocalCtrlPos == 'jarvis' or self.Coord.VocalCtrlPos == 'attiva':
                 self.im_load = self.im_jarvis
                 #self.im_load = self.im_schermata
             elif self.Coord.VocalCtrlPos == 'schermata':
@@ -311,7 +311,7 @@ class MainWindow(BridgeVocalGUI.BridgeVocalWin):
             else:
                 pass
 
-            self.im.set_array (self.im_load)
+            # self.im.set_array (self.im_load)
             return self.im,  
 
 

@@ -25,7 +25,7 @@ class Thread_VocalControlClass(threading.Thread):
 
         # variabili per il riconoscimento vocale
         self.r = sr.Recognizer()
-        #self.r.energy_threshold = 4500
+        #self.r.energy_threshold = 2000
         self.r.dynamic_energy_threshold = False
 
         # variabili per il controllo dei cicli
@@ -84,7 +84,7 @@ class Thread_VocalControlClass(threading.Thread):
                 conf = self.WaitForInstructions()               
                 print conf 
                 
-                if conf == 'vero' :
+                if (conf == 'ok' or conf == 'vero'):
                     print '*** CONTROLLO VOCALE ATTIVATO ***'
                     self.Coord.VocalCtrlPos = 'schermata'
                     winsound.PlaySound('SonoAttivo.wav', winsound.SND_FILENAME)
@@ -149,7 +149,7 @@ class Thread_VocalControlClass(threading.Thread):
                                     self.running_3 = False
                                     self.Bip()
 
-                                elif conf_memo == 'vero':
+                                elif (conf_memo == 'ok' or conf_memo == 'vero'):
                                     self.Memorizza()
 
                                 elif conf_memo[0:4] == 'aiut':
@@ -177,7 +177,7 @@ class Thread_VocalControlClass(threading.Thread):
                 print '*** Vuoi che mi spenga? [Vero/Falso] ***'
                 conf_term = self.WaitForInstructions()
 
-                if conf_term == 'vero':
+                if (conf_term == 'vero' or conf_term == 'ok'):
                     print '*** Controllo vocale disattivato ***'
                     winsound.PlaySound('Spegnimento.wav', winsound.SND_FILENAME)
 

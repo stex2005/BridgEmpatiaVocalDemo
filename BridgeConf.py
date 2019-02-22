@@ -113,7 +113,7 @@ class BridgeConfClass:
         # parametri di configurazione degli step
         self.step_param  = [20, 50, 100] 
         # folder dove sono le immagini di interfaccia
-        self.folder = 'C:/Users/Stefano/PycharmProjects/Vocal Demo/images/'
+        self.folder = 'C:/Users/aless/PycharmProjects/BridgempatiaVocalDemo/images/'
 
     def ReadConfFile (self):
         try:
